@@ -13,6 +13,7 @@
     <description>service</description>
     <modules>
         <module>service-user</module>
+        <module>service_hosp</module>
     </modules>
 
     <dependencies>
@@ -20,6 +21,7 @@
             <groupId>com.register</groupId>
             <artifactId>service-util</artifactId>
         </dependency>
+
         <dependency>
             <groupId>com.register</groupId>
             <artifactId>model</artifactId>
@@ -29,11 +31,23 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
+
         <!--mybatis-plus-->
         <dependency>
             <groupId>com.baomidou</groupId>
             <artifactId>mybatis-plus-boot-starter</artifactId>
         </dependency>
+        <!--mybatis-plus-generator -->
+        <dependency>
+            <groupId>com.baomidou</groupId>
+            <artifactId>mybatis-plus-generator</artifactId>
+        </dependency>
+        <!--模板引擎 依赖-->
+        <dependency>
+            <groupId>org.apache.velocity</groupId>
+            <artifactId>velocity-engine-core</artifactId>
+        </dependency>
+
         <!--mysql-->
         <dependency>
             <groupId>mysql</groupId>
@@ -46,20 +60,20 @@
             <optional>true</optional>
         </dependency>
         <!-- 服务调用feign -->
-        <dependency>
-            <groupId>org.springframework.cloud</groupId>
-            <artifactId>spring-cloud-starter-openfeign</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-openfeign</artifactId>-->
+<!--        </dependency>-->
         <!-- 服务注册 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+<!--        </dependency>-->
         <!-- 流量控制 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
-        </dependency>
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
+<!--        </dependency>-->
     </dependencies>
     <build>
         <plugins>
