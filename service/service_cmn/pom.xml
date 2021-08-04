@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <parent>
+        <artifactId>service</artifactId>
+        <groupId>com.register</groupId>
+        <version>0.0.1-SNAPSHOT</version>
+    </parent>
+    <modelVersion>4.0.0</modelVersion>
+
+    <artifactId>service_cmn</artifactId>
+    <version>1.0</version>
+    <packaging>jar</packaging>
+    <name>service-cmn</name>
+    <description>service-cmn</description>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.register</groupId>
+            <artifactId>model</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.register</groupId>
+            <artifactId>common-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.register</groupId>
+            <artifactId>service-util</artifactId>
+            <version>1.0</version>
+        </dependency>
+
+        <!--EasyExcel-->
+        <!-- https://mvnrepository.com/artifact/com.alibaba/easyexcel -->
+        <dependency>
+            <groupId>com.alibaba</groupId>
+            <artifactId>easyexcel</artifactId>
+            <version>2.1.1</version>
+        </dependency>
+
+        <!-- 服务注册 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
+        </dependency>
+
+    </dependencies>
+
+    <build>
+        <finalName>service-cmn</finalName>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+</project>

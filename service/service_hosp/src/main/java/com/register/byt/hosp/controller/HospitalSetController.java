@@ -29,7 +29,8 @@ import java.util.Random;
  */
 @Api(tags = "医院设置管理")
 @RestController
-@RequestMapping("/admin/hospitalSet")
+@RequestMapping("/admin/hosp/hospitalSet")
+@CrossOrigin
 public class HospitalSetController {
     @Resource
     private HospitalSetService hospitalSetService;
@@ -41,14 +42,16 @@ public class HospitalSetController {
         return Result.ok(list);
     }
 
-    @ApiOperation("获取医院设置信息列表")
+    @ApiOperation("根据医院编号删除单个医院")
     @DeleteMapping("/delete/{Code}")
-    public Result delHospitalSetById(
-            @ApiParam("医院编号")
-            @PathVariable("Code")
-                    String Code) {
-        hospitalSetService.removeById(Code);
-        return Result.ok();
+    public Result delHospitalSetById(@ApiParam("医院编号")
+                                    @PathVariable("Code") String Code) {
+        try {
+            hospitalSetService.remove(new QueryWrapper<HospitalSet>().eq("hoscode",Code));
+        } catch (Exception e) {
+            return Result.fail().message("删除失败！！");
+        }
+        return Result.ok().message("删除成功！！");
     }
 
     @ApiOperation("分页查询医院列表")
@@ -59,8 +62,9 @@ public class HospitalSetController {
         IPage<HospitalSet> iPage = new Page(current, limit);
         QueryWrapper<HospitalSet> wrapper = new QueryWrapper<>();
         // 封装查询条件
-        wrapper.eq(!StringUtils.isEmpty(queryVo.getHoscode()), "code", queryVo.getHoscode())
-                .like(!StringUtils.isEmpty(queryVo.getHosname()), "name", queryVo.getHosname());
+        wrapper.eq(!StringUtils.isEmpty(queryVo.getHoscode()), "hoscode", queryVo.getHoscode())
+                .eq(queryVo.getStatus() != null, "status", queryVo.getStatus())
+                .like(!StringUtils.isEmpty(queryVo.getHosname()), "hosname", queryVo.getHosname());
 
         IPage<HospitalSet> page = hospitalSetService.page(iPage, wrapper);
         return Result.ok(page);
@@ -73,7 +77,7 @@ public class HospitalSetController {
         hospitalSet.setSignKey(MD5.encrypt(System.currentTimeMillis() + new Random().nextInt(1000)+""));
         hospitalSet.setStatus(1);
         boolean save = hospitalSetService.save(hospitalSet);
-        return save ? Result.ok() : Result.fail().message("保存失败！！");
+        return save ? Result.ok().message("保存成功！！") : Result.fail().message("保存失败！！");
     }
 
     @ApiOperation("根据医院ID,获取医院详细信息")
@@ -89,7 +93,7 @@ public class HospitalSetController {
     public Result updateHospitalSetById(@ApiParam("医院详细")
                                         @RequestBody HospitalSet hospitalSet){
         boolean ret = hospitalSetService.updateById(hospitalSet);
-        return ret ? Result.ok() : Result.fail().message("更新失败！！");
+        return ret ? Result.ok().message("更新成功！！") : Result.fail().message("更新失败！！");
     }
 
     @ApiOperation("批量删除医院信息")
@@ -98,6 +102,26 @@ public class HospitalSetController {
                                          @RequestBody List<Long> ids){
         System.out.println("ids = " + ids);
         boolean ret = hospitalSetService.removeByIds(ids);
-        return ret ? Result.ok() : Result.fail().message("批量删除失败！！");
+        return ret ? Result.ok().message("批量删除成功！！") : Result.fail().message("批量删除失败！！");
+    }
+
+    @ApiOperation("医院的解锁与锁定")
+    @PutMapping("/lockHospitalSet/{id}/{status}")
+    public Result lockHospitalSet(@ApiParam("解锁与锁定医院的ID") @PathVariable long id,
+                                  @ApiParam("更新医院的锁定状态") @PathVariable Integer status){
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        hospitalSet.setStatus(status);
+        boolean update = hospitalSetService.updateById(hospitalSet);
+        return update ? Result.ok().message("更新医院锁定状态成功！！") : Result.fail().message("更新医院锁定状态失败！！");
+    }
+
+    @ApiOperation("发送签名秘钥")
+    @PutMapping("/sendSignKey/{id}")
+    public Result sendSignKey(@ApiParam("要发送签名密钥的医院ID") @PathVariable long id){
+        HospitalSet hospitalSet = hospitalSetService.getById(id);
+        String hosCode = hospitalSet.getHoscode(); // 医院代码
+        String signKey = hospitalSet.getSignKey(); // 签名密钥
+        // TODO 发送短信
+        return Result.ok();
     }
 }

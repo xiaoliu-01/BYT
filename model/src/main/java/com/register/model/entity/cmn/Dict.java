@@ -8,6 +8,7 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
+import java.io.Serializable;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -22,7 +23,7 @@ import java.util.Map;
 @Data
 @ApiModel(description = "数据字典")
 @TableName("dict")
-public class Dict {
+public class Dict implements Serializable {
 
     private static final long serialVersionUID = 1L;
 

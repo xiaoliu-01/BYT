@@ -79,7 +79,7 @@
     <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.9" level="project" />
     <orderEntry type="library" name="Maven: org.slf4j:slf4j-api:1.7.30" level="project" />
     <orderEntry type="library" name="Maven: mysql:mysql-connector-java:8.0.12" level="project" />
-    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:2.6.0" level="project" />
+    <orderEntry type="library" name="Maven: com.google.protobuf:protobuf-java:3.12.2" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-devtools:2.2.12.RELEASE" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.2.12.RELEASE" level="project" />
   </component>
