@@ -13,4 +13,5 @@ import com.register.model.entity.hosp.HospitalSet;
  */
 public interface HospitalSetService extends IService<HospitalSet> {
 
+    String getSingKey(String hoscode);
 }

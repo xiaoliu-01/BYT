@@ -9,6 +9,7 @@ import com.register.byt.cmn.service.DictService;
 import com.register.model.entity.cmn.Dict;
 import com.register.model.vo.cmn.DictEeVo;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -38,9 +39,14 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
     @Resource
     private RedisTemplate<String,Object> redisTemplate;
 
+    /**
+     * 根据上级ID获取子类数据集
+     * @param id 父类ID
+     * @return
+     */
     @Transactional(rollbackFor = {Exception.class})
     @Override
-    public List<Dict> findChildrenData(Long id) {
+    public List<Dict> findChildDataById(Long id) {
         // 从Redis中查询是否存在缓存
         List<Dict> dictList= null;
         try {
@@ -105,6 +111,47 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    /**
+     * 根据上级编码与值获取数据字典名称
+     * @param parentDictCode
+     * @param value
+     * @return
+     */
+    @Override
+    public String getDictNameByParentDictCodeAndValue(String parentDictCode, String value) {
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        //如果value能唯一定位数据字典，parentDictCode可以传空，例如：省市区的value值能够唯一确定
+        if(StringUtils.isEmpty(parentDictCode)){
+            wrapper.eq("value",value);
+            Dict dict = dictMapper.selectOne(wrapper);
+            if(dict != null) return dict.getName();
+        }else {
+            wrapper.eq("dict_code",parentDictCode);
+            // 得到上级数据字典
+            Dict parentDict = dictMapper.selectOne(wrapper);
+            Long parentDictId = parentDict.getId();
+            wrapper = new QueryWrapper<Dict>();
+            wrapper.eq("value",value)
+                   .eq("parent_id",parentDictId);
+            Dict dict = dictMapper.selectOne(wrapper);
+            if(dict != null) return dict.getName();
+        }
+        return null;
+    }
+
+    /**
+     *  根据数据编码获取子类数据集
+     * @param dictCode 数据编码
+     * @return
+     */
+    @Override
+    public List<Dict> findByDictCode(String dictCode) {
+        QueryWrapper<Dict> wrapper = new QueryWrapper<>();
+        wrapper.eq(!StringUtils.isEmpty(dictCode),"dict_code",dictCode);
+        Dict parentDict = this.getOne(wrapper);
+        return findChildDataById(parentDict.getId());
     }
 
     //判断id下面是否有子节点
