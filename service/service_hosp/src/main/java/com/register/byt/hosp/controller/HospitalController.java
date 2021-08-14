@@ -19,7 +19,7 @@ import javax.annotation.Resource;
 @Api(tags = "医院管理接口")
 @RestController
 @RequestMapping("/admin/hosp/hospital")
-@CrossOrigin // 跨域
+//@CrossOrigin // 跨域
 public class HospitalController {
 
     @Resource

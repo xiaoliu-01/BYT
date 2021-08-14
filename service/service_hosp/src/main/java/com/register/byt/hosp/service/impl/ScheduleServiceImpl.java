@@ -2,6 +2,7 @@ package com.register.byt.hosp.service.impl;
 
 import com.alibaba.fastjson.JSONObject;
 import com.register.byt.hosp.repository.ScheduleRepository;
+import com.register.byt.hosp.service.DepartmentService;
 import com.register.byt.hosp.service.HospitalService;
 import com.register.byt.hosp.service.ScheduleService;
 import com.register.model.entity.hosp.Schedule;
@@ -40,6 +41,9 @@ public class ScheduleServiceImpl implements ScheduleService {
 
     @Resource
     private HospitalService hospitalService;
+
+    @Resource
+    private DepartmentService departmentService;
 
     @Override
     public void saveSchedule(Map<String, Object> paramMap) {
@@ -101,7 +105,9 @@ public class ScheduleServiceImpl implements ScheduleService {
                             .sum("reservedNumber").as("reservedNumber")
                             .sum("availableNumber").as("availableNumber")
                             .last("status").as("status"),
-                Aggregation.sort(Sort.Direction.DESC,"workDate"),
+                // 排序
+                //Aggregation.sort(Sort.Direction.ASC,"workDate"),
+                Aggregation.sort(Sort.by("workDate")),
                 // 4、实现分页
                 Aggregation.skip((page - 1) * limit),
                 Aggregation.limit(limit)
@@ -138,6 +144,34 @@ public class ScheduleServiceImpl implements ScheduleService {
         baseMap.put("hosName",hosName);
         resultMap.put("baseMap",baseMap);
         return resultMap;
+    }
+
+    @Override
+    public List<Schedule> getDetailSchedule(String hosCode, String depCode, String workDate) {
+        //根据参数查询mongodb
+        List<Schedule> scheduleList =
+                scheduleRepository.findScheduleByHoscodeAndDepcodeAndWorkDate(hosCode,depCode,new DateTime(workDate).toDate());
+        //把得到list集合遍历，向设置其他值：医院名称、科室名称、日期对应星期
+        scheduleList.forEach(schedule -> {
+            packageSchedule(schedule);
+        });
+        return scheduleList;
+    }
+
+    //封装排班详情其他值 医院名称、科室名称、日期对应星期
+    private void packageSchedule(Schedule schedule) {
+        // 设置医院名称
+        String hosName = hospitalService.getHosNameByCode(schedule.getHoscode());
+        // 科室名称
+        String depName = departmentService.getDepNameByCode(schedule.getDepcode(),schedule.getHoscode());
+        // 日期对应星期
+        String dayOfWeek = getDayOfWeek(new DateTime(schedule.getWorkDate()));
+        // 封装值
+        Map<String, Object> param = schedule.getParam();
+        param.put("hosName",hosName);
+        param.put("depName",depName);
+        param.put("dayOfWeek",dayOfWeek);
+        schedule.setParam(param);
     }
 
     /**

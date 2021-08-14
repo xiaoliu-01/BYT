@@ -19,8 +19,9 @@ public enum ResultCodeEnum {
     PERMISSION(209, "没有权限"),
 
     CODE_ERROR(210, "验证码错误"),
+    LOGIN_PHONE_ERROR(211, "该手机号未注册,请先注册"),
 //    LOGIN_MOBLE_ERROR(211, "账号不正确"),
-    LOGIN_DISABLED_ERROR(212, "改用户已被禁用"),
+    LOGIN_DISABLED_ERROR(212, "该用户已被禁用"),
     REGISTER_MOBLE_ERROR(213, "手机号已被使用"),
     LOGIN_AURH(214, "需要登录"),
     LOGIN_ACL(215, "没有权限"),
@@ -42,6 +43,8 @@ public enum ResultCodeEnum {
     SIGN_ERROR(300, "签名错误"),
     HOSPITAL_OPEN(310, "医院未开通，暂时不能访问"),
     HOSPITAL_LOCK(320, "医院被锁定，暂时不能访问"),
+
+    ALIYUN_SMS_ERROR(401,"阿里云短信，发送失败")
     ;
 
     private Integer code;

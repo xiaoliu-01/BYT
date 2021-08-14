@@ -16,17 +16,22 @@
         <module>service_hosp</module>
         <module>service_cmn</module>
         <module>service_gateway</module>
+        <module>server_gateway</module>
+        <module>service_user</module>
+        <module>service_msm</module>
     </modules>
 
     <dependencies>
         <dependency>
             <groupId>com.register</groupId>
             <artifactId>service-util</artifactId>
+            <version>1.0</version>
         </dependency>
 
         <dependency>
             <groupId>com.register</groupId>
             <artifactId>model</artifactId>
+            <version>1.0</version>
         </dependency>
         <!--web-->
         <dependency>

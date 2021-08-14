@@ -1,0 +1,34 @@
+server:
+  port: 8204 #端口号
+
+spring:
+  application:
+    name: service-msm #服务名
+  profiles:
+    active: dev #开发环境(dev、test、prop)
+  jackson: #返回json的全局时间格式
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
+
+  redis:  # redis相关配置
+    host: 192.168.56.10
+    port: 6379
+    database: 0
+    timeout: 30000
+    lettuce:
+      pool:
+        max-active: 20
+        max-idle: 5
+
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848 #nacos地址
+
+aliyun: #阿里云相关配置
+  sms:
+    region-id: cn-hangzhou
+    key-id: LTAI5tQZQMTaDhNyJEjvGUhi
+    key-secret: 26pIK68YhkMvdSG4w7hPYene2258sJ
+    template-code: SMS_203725942
+    sign-name: 小刘的在线教育网站

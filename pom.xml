@@ -6,7 +6,6 @@
         <module>common</module>
         <module>model</module>
         <module>service</module>
-        <module>serivce_hosp</module>
         <module>hospital_manage</module>
     </modules>
     <parent>
@@ -25,7 +24,7 @@
     <!-- 版本依赖 -->
     <properties>
         <java.version>1.8</java.version>
-        <cloud.version>Hoxton.SR8</cloud.version>
+        <cloud.version>Hoxton.RELEASE</cloud.version>
         <alibaba.version>2.2.0.RELEASE</alibaba.version>
         <mybatis-genreator.version>3.4.1</mybatis-genreator.version>
         <mybatis-plus.version>3.3.1</mybatis-plus.version>

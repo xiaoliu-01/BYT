@@ -18,7 +18,7 @@ import java.util.List;
 @Api(tags = "科室管理")
 @RestController
 @RequestMapping("/admin/hosp/department")
-@CrossOrigin
+//@CrossOrigin
 public class DepartmentController {
     @Resource
     private DepartmentService departmentService;

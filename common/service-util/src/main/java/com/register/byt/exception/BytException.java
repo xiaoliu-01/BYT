@@ -27,6 +27,14 @@ public class BytException extends RuntimeException{
     }
 
     /**
+     * 通过错误消息创建异常对象
+     * @param message
+     */
+    public BytException(String message) {
+        super(message);
+    }
+
+    /**
      * 接收枚举类型对象
      * @param resultCodeEnum
      */

@@ -4,6 +4,7 @@ import com.register.model.entity.hosp.Schedule;
 import com.register.model.vo.hosp.ScheduleQueryVo;
 import org.springframework.data.domain.Page;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -42,4 +43,13 @@ public interface ScheduleService {
      * @return
      */
     Map<String, Object> getRuleSchedule(long page, long limit, String hosCode, String depCode);
+
+    /**
+     * 根据医院编号 、科室编号和工作日期，查询排班详细信息
+     * @param hosCode 医院编号
+     * @param depCode 科室编号
+     * @param workDate 工作日期
+     * @return
+     */
+    List<Schedule> getDetailSchedule(String hosCode, String depCode, String workDate);
 }

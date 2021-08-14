@@ -4,6 +4,7 @@ import com.alibaba.fastjson.JSONObject;
 import com.register.byt.hosp.remote.CmnRemoteClient;
 import com.register.byt.hosp.repository.HospitalRepository;
 import com.register.byt.hosp.service.HospitalService;
+import com.register.model.entity.hosp.BookingRule;
 import com.register.model.entity.hosp.Hospital;
 import com.register.model.enums.DictEnum;
 import com.register.model.vo.hosp.HospitalQueryVo;
@@ -14,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -125,6 +127,28 @@ public class HospitalServiceImpl implements HospitalService {
         return "";
     }
 
+    @Override
+    public List<Hospital> getHospitalListByHosName(String hosName) {
+        List<Hospital> hospitalList = hospitalRepository.findHospitalByHosnameLike(hosName);
+        return hospitalList;
+    }
+
+    @Override
+    public Map<String, Object> selectHospDetailByHosCode(String hosCode) {
+        //医院详情
+        Hospital hospital = getHospitalByCode(hosCode);
+        // 封装param数据
+        hospital = packHospital(hospital);
+        // 预约规则
+        BookingRule bookingRule = hospital.getBookingRule();
+        // 封装信息
+        HashMap<String, Object> map = new HashMap<>();
+        map.put("hospital",hospital);
+        map.put("bookingRule",bookingRule);
+        //不需要重复返回
+        hospital.setBookingRule(null);
+        return map;
+    }
 
     // 医院设置param值
     private Hospital packHospital(Hospital hospital) {
