@@ -13,11 +13,18 @@
     <description>会员服务模块</description>
 
     <dependencies>
+<!--        <dependency>-->
+<!--            <groupId>com.register</groupId>-->
+<!--            <artifactId>service_hosp</artifactId>-->
+<!--            <version>1.0</version>-->
+<!--        </dependency>-->
+
         <dependency>
             <groupId>com.register</groupId>
             <artifactId>service-util</artifactId>
             <version>1.0</version>
         </dependency>
+
         <dependency>
             <groupId>com.register</groupId>
             <artifactId>model</artifactId>

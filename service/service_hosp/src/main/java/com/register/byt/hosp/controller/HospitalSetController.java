@@ -4,11 +4,12 @@ package com.register.byt.hosp.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.register.byt.commons.MD5;
 import com.register.byt.commons.result.Result;
+import com.register.byt.commons.utils.MD5;
 import com.register.byt.hosp.service.HospitalSetService;
 import com.register.model.entity.hosp.HospitalSet;
 import com.register.model.vo.hosp.HospitalQueryVo;
+import com.register.model.vo.order.SignInfoVo;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -124,4 +125,14 @@ public class HospitalSetController {
         // TODO 发送短信
         return Result.ok();
     }
+
+    @ApiOperation(value = "获取医院签名信息")
+    @GetMapping("inner/getSignInfoVo/{hosCode}")
+    public SignInfoVo getSignInfoVo(
+                                    @ApiParam(name = "hosCode", value = "医院code", required = true)
+                                    @PathVariable("hosCode") String hosCode) {
+        return hospitalSetService.getSignInfoVo(hosCode);
+    }
+
+
 }

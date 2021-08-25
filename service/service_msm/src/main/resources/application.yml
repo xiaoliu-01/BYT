@@ -24,6 +24,10 @@ spring:
     nacos:
       discovery:
         server-addr: 127.0.0.1:8848 #nacos地址
+  rabbitmq: # MQ相关配置
+    addresses: 192.168.56.10:5672
+    username: admin
+    password: admin
 
 aliyun: #阿里云相关配置
   sms:
@@ -32,3 +36,5 @@ aliyun: #阿里云相关配置
     key-secret: 26pIK68YhkMvdSG4w7hPYene2258sJ
     template-code: SMS_203725942
     sign-name: 小刘的在线教育网站
+
+

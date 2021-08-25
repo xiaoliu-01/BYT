@@ -1,6 +1,6 @@
 package com.register.byt.msm.controller;
 
-import com.register.byt.commons.RandomUtils;
+import com.register.byt.commons.utils.RandomUtils;
 import com.register.byt.commons.result.Result;
 import com.register.byt.msm.service.MsmService;
 import io.swagger.annotations.Api;

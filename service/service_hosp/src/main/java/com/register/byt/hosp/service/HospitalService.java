@@ -66,4 +66,5 @@ public interface HospitalService{
      * @return
      */
     Map<String, Object> selectHospDetailByHosCode(String hosCode);
+
 }

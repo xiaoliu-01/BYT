@@ -151,7 +151,12 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements Di
         QueryWrapper<Dict> wrapper = new QueryWrapper<>();
         wrapper.eq(!StringUtils.isEmpty(dictCode),"dict_code",dictCode);
         Dict parentDict = this.getOne(wrapper);
-        return findChildDataById(parentDict.getId());
+        wrapper = new QueryWrapper<Dict>();
+        if(parentDict!= null){
+            wrapper.eq("parent_id",parentDict.getId());
+        }
+        List<Dict> childDict = this.list(wrapper);
+        return childDict;
     }
 
     //判断id下面是否有子节点

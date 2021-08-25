@@ -1,9 +1,11 @@
 package com.register.byt.hosp.service;
 
 import com.register.model.entity.hosp.Schedule;
+import com.register.model.vo.hosp.ScheduleOrderVo;
 import com.register.model.vo.hosp.ScheduleQueryVo;
 import org.springframework.data.domain.Page;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +13,7 @@ import java.util.Map;
  * @author LLXX
  * @create 2021-08-06 9:08
  */
-public interface ScheduleService {
+public interface ScheduleService  {
     /**
      *  添加排班信息
      * @param paramMap
@@ -52,4 +54,33 @@ public interface ScheduleService {
      * @return
      */
     List<Schedule> getDetailSchedule(String hosCode, String depCode, String workDate);
+
+    /**
+     * 根据医院编号 、科室编号，查询可预约的排班信息带分页
+     * @param page
+     * @param limit
+     * @param hosCode
+     * @param depCode
+     * @return
+     */
+    HashMap<String, Object> getBookingScheduleRule(Integer page, Integer limit, String hosCode, String depCode);
+
+    /**
+     * 获取排班详细
+     * @param scheduleId 排班ID
+     * @return
+     */
+    Schedule getScheduleDetailById(String scheduleId);
+
+    /**
+     * 根据排班id获取预约下单数据
+     * @param scheduleId 排班ID
+     */
+    ScheduleOrderVo getScheduleOrderVo(String scheduleId);
+
+    /**
+     * 更新排班详细
+     * @param schedule
+     */
+    boolean update(Schedule schedule);
 }

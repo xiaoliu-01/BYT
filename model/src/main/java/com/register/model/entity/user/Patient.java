@@ -9,6 +9,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * <p>
@@ -100,5 +101,9 @@ public class Patient extends BaseEntity {
 	@ApiModelProperty(value = "状态（0：默认 1：已认证）")
 	@TableField("status")
 	private String status;
+
+	@ApiModelProperty(value = "")
+	@TableField(exist = false)
+	private List<String> addressSelected;
 }
 

@@ -13,6 +13,7 @@ import com.register.byt.commons.result.ResultCodeEnum;
 import com.register.byt.exception.BytException;
 import com.register.byt.msm.service.MsmService;
 import com.register.byt.msm.utils.SmsProperties;
+import com.register.model.vo.msm.MsmVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
@@ -79,5 +80,17 @@ public class MsmServiceImpl implements MsmService {
             log.error("ErrorMessage=" + e.getErrMsg());
             throw new BytException(ResultCodeEnum.ALIYUN_SMS_ERROR.getMessage());
         }
+    }
+
+    // 生成订单，发送验证码
+    @Override
+    public boolean send(MsmVo msmVo) {
+        Map<String, Object> map = msmVo.getParam();
+        String phone = msmVo.getPhone();
+        String code = (String) map.get("code");
+        if(!StringUtils.isEmpty(phone)){
+            return this.send(phone,code);
+        }
+        return false;
     }
 }

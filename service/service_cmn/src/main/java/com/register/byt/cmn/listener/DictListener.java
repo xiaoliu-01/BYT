@@ -15,10 +15,9 @@ import java.util.List;
  * @author LLXX
  * @create 2021-08-02 15:58
  */
-//@Component
 @Slf4j
 public class DictListener extends AnalysisEventListener<DictEeVo> {
-    //@Resource
+
     private DictMapper dictMapper;
 
     public DictListener(DictMapper dictMapper) {

@@ -1,5 +1,7 @@
 package com.register.byt.msm.service;
 
+import com.register.model.vo.msm.MsmVo;
+
 /**
  * @author LLXX
  * @create 2021-08-13 9:33
@@ -13,4 +15,9 @@ public interface MsmService {
      * @return
      */
     boolean send(String phone, String fourBitCode);
+
+    /**
+     * 发送验证码,生成订单
+     */
+    boolean send(MsmVo msmVo);
 }

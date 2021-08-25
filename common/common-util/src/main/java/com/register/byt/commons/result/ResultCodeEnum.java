@@ -44,7 +44,8 @@ public enum ResultCodeEnum {
     HOSPITAL_OPEN(310, "医院未开通，暂时不能访问"),
     HOSPITAL_LOCK(320, "医院被锁定，暂时不能访问"),
 
-    ALIYUN_SMS_ERROR(401,"阿里云短信，发送失败")
+    ALIYUN_SMS_ERROR(401,"阿里云短信，发送失败"),
+    FILE_UPLOAD_FAIL(402,"文件上传失败")
     ;
 
     private Integer code;

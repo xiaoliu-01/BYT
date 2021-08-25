@@ -49,8 +49,9 @@ public class OrderInfo extends BaseEntity {
 	@TableField("depname")
 	private String depname;
 
-	@ApiModelProperty(value = "排班id")
-	@TableField("schedule_id")
+	@ApiModelProperty(value = "排班编号（医院自己的排班主键）")
+	//@TableField("schedule_id")
+	@TableField("hos_schedule_id")
 	private String scheduleId;
 
 	@ApiModelProperty(value = "医生职称")

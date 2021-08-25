@@ -5,6 +5,8 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.register.byt.hosp.mapper.HospitalSetMapper;
 import com.register.byt.hosp.service.HospitalSetService;
 import com.register.model.entity.hosp.HospitalSet;
+import com.register.model.vo.order.SignInfoVo;
+import org.springframework.beans.BeanUtils;
 import org.springframework.stereotype.Service;
 
 /**
@@ -24,5 +26,14 @@ public class HospitalSetServiceImpl extends ServiceImpl<HospitalSetMapper, Hospi
         wrapper.eq("hoscode", hosCode);
         HospitalSet hospitalSet = baseMapper.selectOne(wrapper);
         return hospitalSet.getSignKey();
+    }
+
+    @Override
+    public SignInfoVo getSignInfoVo(String hosCode) {
+        SignInfoVo signInfoVo = new SignInfoVo();
+        QueryWrapper<HospitalSet> wrapper = new QueryWrapper<HospitalSet>().eq("hoscode", hosCode);
+        HospitalSet hospitalSet = this.getOne(wrapper);
+        BeanUtils.copyProperties(hospitalSet,signInfoVo);
+        return signInfoVo;
     }
 }
